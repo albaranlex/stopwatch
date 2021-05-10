@@ -1,0 +1,74 @@
+// @import "../abstracts/_abstracts-dir";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #ffffffc5;
+}
+
+body {
+  @include page-center;
+  font-family: Avenir;
+}
+
+.main-container {
+  @include page-center;
+  flex-direction: column;
+  background-color: #04a5bc;
+  border-radius: 100%;
+  width: 450px;
+  height: 450px;
+  transition: 0.3s;
+  margin: 100px;
+  position: relative;
+}
+
+.buttons {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  .stop button,
+  .reset button {
+    margin: -50px 50px;
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    border: none;
+    background-color: #077bab;
+  }
+  .stop button {
+    position: absolute;
+    left: 50px;
+  }
+
+  .reset button {
+    position: absolute;
+    right: 50px;
+  }
+}
+.clock {
+  @include page-center;
+  justify-content: space-evenly;
+  background-color: whitesmoke;
+  width: 500px;
+  height: 180px;
+  border: 1px solid #f5f5f596;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px #7a7a7a56;
+  margin: 20px 80px;
+  padding: 20px;
+  white-space: nowrap;
+  .hour-cont,
+  .min-cont,
+  .sec-cont {
+    @include page-center;
+    width: 80px;
+    height: 80px;
+    background-color: #e6e1e157;
+    font-size: 50px;
+    color: black;
+  }
+  .colon {
+    font-size: 30px;
+  }
+}
