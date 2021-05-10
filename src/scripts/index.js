@@ -1,63 +1,72 @@
-const timer = document.querySelector(".clock");
-const hour = document.querySelector(".hour-cont");
-const minute = document.querySelector(".min-cont");
-const second = document.querySelector(".sec-cont");
+//SELECTORS
+const startButton = document.querySelector(".start");
+const stopButton = document.querySelector(".stop");
+const resetButton = document.querySelector(".reset");
+//VARIABLES
+let seconds = 0;
+let minutes = 0;
+let hours = 0;
 
-var hr = 0;
-var min = 0;
-var sec = 0;
-var stoptime = true;
+let displaySeconds = 0;
+let displayMinutes = 0;
+let displayHours = 0;
 
-function startTimer() {
-  if (stoptime == true) {
-    stoptime = false;
-    timerCycle();
+let interval = null;
+
+let status = "stopped";
+
+function stopWatch() {
+  seconds++;
+
+  if (seconds / 60 === 1) {
+    seconds = 0;
+    minutes++;
+
+    if (minutes / 60 === 1) {
+      minutes = 0;
+      hours++;
+    }
   }
-}
-function stopTimer() {
-  if (stoptime == false) {
-    stoptime = true;
+  if (seconds < 10) {
+    displaySeconds = "0" + seconds.toString();
+  } else {
+    displaySeconds = seconds;
   }
-}
-
-function timerCycle() {
-  if (stoptime == false) {
-    sec = parseInt(sec);
-    min = parseInt(min);
-    hr = parseInt(hr);
-
-    sec = sec + 1;
-
-    if (sec == 60) {
-      min = min + 1;
-      sec = 0;
-    }
-    if (min == 60) {
-      hr = hr + 1;
-      min = 0;
-      sec = 0;
-    }
-
-    if (sec < 10 || sec == 0) {
-      sec = "0" + sec;
-    }
-    if (min < 10 || min == 0) {
-      min = "0" + min;
-    }
-    if (hr < 10 || hr == 0) {
-      hr = "0" + hr;
-    }
-
-    hour.innerHTML = hr;
-    minute.innerHTML = min;
-    second.innerHTML = sec;
-
-    setTimeout("timerCycle()", 1000);
+  if (minutes < 10) {
+    displayMinutes = "0" + minutes.toString();
+  } else {
+    displayMinutes = minutes;
   }
+  if (hours < 10) {
+    displayHours = "0" + hours.toString();
+  } else {
+    displayHours = hours;
+  }
+
+  document.querySelector(".clock").innerHTML =
+    displayHours + ":" + displayMinutes + ":" + displaySeconds;
 }
 
-function resetTimer() {
-  hour.innerHTML = "00";
-  minute.innerHTML = "00";
-  second.innerHTML = "00";
+function startStop() {
+  if (status === "stopped") {
+    interval = window.setInterval(stopWatch, 1000);
+    document.querySelector("#startStop").innerHTML = "STOP";
+    document.querySelector(".motion").style.display = "unset";
+    status = "started";
+  } else {
+    window.clearInterval(interval);
+    document.querySelector("#startStop").innerHTML = "START";
+    document.querySelector(".still").style.display = "unset";
+    document.querySelector(".motion").style.display = "none";
+    status = "stopped";
+  }
+}
+
+function reset() {
+  window.clearInterval(interval);
+  seconds = 0;
+  minutes = 0;
+  hours = 0;
+  document.querySelector(".clock").innerHTML = "00:00:00";
+  document.querySelector("#startStop").innerHTML = "START";
 }
