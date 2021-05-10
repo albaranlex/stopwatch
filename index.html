@@ -13,22 +13,22 @@
   </head>
   <body background="blue">
     <div class="main-container">
-      <h5>Stopwatch</h5>
-      <h2>STOPWATCH</h2>
-      <div class="clock">
-        <div class="hour-cont">00</div>
-        <div class="colon">:</div>
-        <div class="min-cont">00</div>
-        <div class="colon">:</div>
-        <div class="sec-cont">00</div>
+      <div class="hamster">
+        <img src="./images/hamster-still.jpg" alt="running hamster" class = "still" />
+        <img src="./images/hamster.gif" alt="running hamster" class = "motion"/>
       </div>
+      <div class="half-circle"></div>
+      <div class="line"></div>
+      <div class="clock">00:00:00</div>
       <div class="buttons">
-        <div class="stop">
-          <button>START</button>
+        <div>
+          <button id="startStop" onclick="startStop()">START</button>
         </div>
-        <div class="reset"><button>RESET</button></div>
+      <div >
+        <button id="reset" onclick="reset()">RESET</button>
       </div>
     </div>
+    <div><h5>MY LIFE IS IN YOUR HANDS.</p></div>
     <script src="./scripts/index.js"></script>
   </body>
 </html>
