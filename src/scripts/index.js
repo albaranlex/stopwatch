@@ -5,10 +5,12 @@ const resetButton = document.querySelector("#reset");
 const display = document.querySelector(".clock");
 
 //VARIABLES
+let mili = 0;
 let seconds = 0;
 let minutes = 0;
 let hours = 0;
 
+let displayMili = 0;
 let displaySeconds = 0;
 let displayMinutes = 0;
 let displayHours = 0;
@@ -18,16 +20,27 @@ let isRunning = false;
 
 function stopWatch() {
   if (isRunning === true) {
-    seconds++;
+    mili++;
 
-    if (seconds / 60 === 1) {
-      seconds = 0;
-      minutes++;
+    if (mili / 100 === 1) {
+      mili = 0;
+      seconds++;
+
+      if (seconds / 60 === 1) {
+        seconds = 0;
+        minutes++;
+      }
 
       if (minutes / 60 === 1) {
         minutes = 0;
         hours++;
       }
+    }
+
+    if (mili < 10) {
+      displayMili = "0" + mili.toString();
+    } else {
+      displayMili = mili;
     }
     if (seconds < 10) {
       displaySeconds = "0" + seconds.toString();
@@ -45,7 +58,7 @@ function stopWatch() {
       displayHours = hours;
     }
 
-    display.innerHTML = `${displayHours}:${displayMinutes}:${displaySeconds}`;
+    display.innerHTML = `${displayHours}:${displayMinutes}:${displaySeconds}:${displayMili}`;
   }
 }
 
@@ -54,7 +67,7 @@ function startTimer() {
     isRunning = true;
 
     if (isRunning) {
-      interval = setInterval(stopWatch, 1000);
+      interval = setInterval(stopWatch, 10);
       document.querySelector(".motion").style.display = "unset";
     }
   }
@@ -72,7 +85,7 @@ function resetTimer() {
   seconds = 0;
   minutes = 0;
   hours = 0;
-  display.innerHTML = "00:00:00";
+  display.innerHTML = "00:00:00:00";
 }
 
 //EVENTS
