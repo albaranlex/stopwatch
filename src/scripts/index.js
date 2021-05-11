@@ -1,7 +1,9 @@
 //SELECTORS
-const startButton = document.querySelector(".start");
-const stopButton = document.querySelector(".stop");
-const resetButton = document.querySelector(".reset");
+const startButton = document.querySelector("#start");
+const stopButton = document.querySelector("#stop");
+const resetButton = document.querySelector("#reset");
+const display = document.querySelector(".clock");
+
 //VARIABLES
 let seconds = 0;
 let minutes = 0;
@@ -12,61 +14,68 @@ let displayMinutes = 0;
 let displayHours = 0;
 
 let interval = null;
-
-let status = "stopped";
+let isRunning = false;
 
 function stopWatch() {
-  seconds++;
+  if (isRunning === true) {
+    seconds++;
 
-  if (seconds / 60 === 1) {
-    seconds = 0;
-    minutes++;
+    if (seconds / 60 === 1) {
+      seconds = 0;
+      minutes++;
 
-    if (minutes / 60 === 1) {
-      minutes = 0;
-      hours++;
+      if (minutes / 60 === 1) {
+        minutes = 0;
+        hours++;
+      }
+    }
+    if (seconds < 10) {
+      displaySeconds = "0" + seconds.toString();
+    } else {
+      displaySeconds = seconds;
+    }
+    if (minutes < 10) {
+      displayMinutes = "0" + minutes.toString();
+    } else {
+      displayMinutes = minutes;
+    }
+    if (hours < 10) {
+      displayHours = "0" + hours.toString();
+    } else {
+      displayHours = hours;
+    }
+
+    display.innerHTML = `${displayHours}:${displayMinutes}:${displaySeconds}`;
+  }
+}
+
+function startTimer() {
+  if (isRunning === false) {
+    isRunning = true;
+
+    if (isRunning) {
+      interval = setInterval(stopWatch, 1000);
+      document.querySelector(".motion").style.display = "unset";
     }
   }
-  if (seconds < 10) {
-    displaySeconds = "0" + seconds.toString();
-  } else {
-    displaySeconds = seconds;
-  }
-  if (minutes < 10) {
-    displayMinutes = "0" + minutes.toString();
-  } else {
-    displayMinutes = minutes;
-  }
-  if (hours < 10) {
-    displayHours = "0" + hours.toString();
-  } else {
-    displayHours = hours;
-  }
-
-  document.querySelector(".clock").innerHTML =
-    displayHours + ":" + displayMinutes + ":" + displaySeconds;
 }
 
-function startStop() {
-  if (status === "stopped") {
-    interval = window.setInterval(stopWatch, 1000);
-    document.querySelector("#startStop").innerHTML = "STOP";
-    document.querySelector(".motion").style.display = "unset";
-    status = "started";
-  } else {
-    window.clearInterval(interval);
-    document.querySelector("#startStop").innerHTML = "START";
-    document.querySelector(".still").style.display = "unset";
-    document.querySelector(".motion").style.display = "none";
-    status = "stopped";
-  }
+function stopTimer() {
+  isRunning = false;
+  clearInterval(interval);
+  document.querySelector(".still").style.display = "unset";
+  document.querySelector(".motion").style.display = "none";
 }
 
-function reset() {
-  window.clearInterval(interval);
+function resetTimer() {
+  clearInterval(interval);
   seconds = 0;
   minutes = 0;
   hours = 0;
-  document.querySelector(".clock").innerHTML = "00:00:00";
-  document.querySelector("#startStop").innerHTML = "START";
+  display.innerHTML = "00:00:00";
 }
+
+//EVENTS
+startButton.addEventListener("click", startTimer);
+stopButton.addEventListener("click", stopTimer);
+resetButton.addEventListener("click", resetTimer);
