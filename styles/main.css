@@ -64,7 +64,8 @@ img {
   display: flex;
   flex-direction: row;
 }
-.buttons #startStop,
+.buttons #start,
+.buttons #stop,
 .buttons #reset {
   margin: 10px 20px;
   width: 100px;
