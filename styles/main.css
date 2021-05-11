@@ -25,11 +25,11 @@ body {
 }
 
 img {
-  width: 250px;
-  height: 170px;
+  width: 200px;
+  height: 150px;
   position: absolute;
-  top: 0px;
-  right: 90px;
+  top: 25px;
+  right: 120px;
   z-index: 0;
   border-bottom: 50px;
 }
